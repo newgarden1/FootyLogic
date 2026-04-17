@@ -7,7 +7,7 @@ router = APIRouter(prefix="/matches", tags=["matches"])
 @router.get("/today")
 async def today_matches(
     league: int = Query(None, description="리그 ID (없으면 전체)"),
-    season: int = Query(2025, description="시즌 연도"),
+    season: int = Query(2024, description="시즌 연도"),
 ):
     """오늘 경기 목록 반환."""
     from datetime import date
