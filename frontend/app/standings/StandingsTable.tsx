@@ -87,7 +87,6 @@ export default async function StandingsTable({ leagueId }: { leagueId: number })
                   key={row.team.id}
                   className="transition-colors"
                   style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}
-                  onMouseEnter={() => {}}
                 >
                   {/* 순위 */}
                   <td className="py-3 pl-5 pr-2">
