@@ -8,6 +8,7 @@ const NAV = [
   { href: '/standings', icon: '🏆', label: '리그 순위',    group: '메인' },
   { href: '/teams',     icon: '🛡️', label: '팀 분석',     group: '분석' },
   { href: '/players',   icon: '👤', label: '선수 데이터',  group: '분석' },
+  { href: '/test',      icon: '🧪', label: 'API 테스트',   group: '개발' },
 ]
 
 export default function Sidebar() {
