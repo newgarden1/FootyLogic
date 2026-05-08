@@ -122,6 +122,29 @@ footylogic/
 | GET | `/players/search?name=` | 선수 검색 |
 | GET | `/players/{id}` | 선수 상세 정보 |
 
+### 화면별 API-Football 호출 횟수
+
+프론트엔드에서 사용자 액션 1회당 API-Football에 실제로 발생하는 호출 횟수입니다.
+
+| 사용자 액션 | 백엔드 엔드포인트 | API 호출 횟수 |
+|---|---|:---:|
+| 리그 순위표 조회 | `/leagues/{id}/standings` | 1 |
+| 득점 순위 조회 | `/leagues/{id}/top-scorers` | 1 |
+| 어시스트 순위 조회 | `/leagues/{id}/top-assists` | 1 |
+| 오늘 경기 목록 조회 | `/matches/today` | 1 |
+| **경기 상세 조회** | `/matches/{fixture_id}` | **4** (fixture + statistics + events + lineups) |
+| 팀 검색 | `/teams/search` | 1 |
+| 팀 기본 정보 조회 | `/teams/{id}` | 1 |
+| 팀 시즌 통계 조회 | `/teams/{id}/statistics` | 1 |
+| 팀 최근 경기 조회 | `/teams/{id}/fixtures` | 1 |
+| 선수 검색 | `/players/search` | 1 |
+| 선수 상세 정보 조회 | `/players/{id}` | 1 |
+| 선수 이적 기록 조회 | `/players/{id}/transfers` | 1 |
+| 선수 수상 기록 조회 | `/players/{id}/trophies` | 1 |
+
+경기 상세 페이지만 단일 요청에서 4회 호출이 발생하며, 나머지는 모두 1:1입니다.  
+무료 플랜(하루 100회) 사용 시 유의가 필요합니다.
+
 ---
 
 ## 로컬 실행 방법
