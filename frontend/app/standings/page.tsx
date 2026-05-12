@@ -6,12 +6,11 @@ import FilterTabs from '@/components/FilterTabs'
 import StandingsTable from './StandingsTable'
 
 const LEAGUE_TABS = [
-  { key: '39',  label: '🏴󠁧󠁢󠁥󠁮󠁧󠁿 프리미어리그' },
-  { key: '140', label: '🇪🇸 라리가' },
-  { key: '78',  label: '🇩🇪 분데스리가' },
-  { key: '135', label: '🇮🇹 세리에A' },
-  { key: '61',  label: '🇫🇷 리그앙' },
-  { key: '292', label: '🇰🇷 K리그1' },
+  { key: '2021', label: '🏴󠁧󠁢󠁥󠁮󠁧󠁿 프리미어리그' },
+  { key: '2014', label: '🇪🇸 라리가' },
+  { key: '2002', label: '🇩🇪 분데스리가' },
+  { key: '2019', label: '🇮🇹 세리에A' },
+  { key: '2015', label: '🇫🇷 리그앙' },
 ]
 
 export default async function StandingsPage({

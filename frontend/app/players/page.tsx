@@ -200,7 +200,8 @@ export default function PlayersPage() {
         {results === null && !loading && (
           <div className="flex flex-col items-center justify-center py-24 gap-3" style={{ color: '#7a8399' }}>
             <span className="text-5xl">👤</span>
-            <p className="text-sm">선수 이름을 검색하면 시즌 스탯을 확인할 수 있습니다.</p>
+            <p className="text-sm">선수 검색은 현재 지원되지 않습니다.</p>
+            <p className="text-xs" style={{ color: '#4a5568' }}>football-data.org 무료 플랜 제한사항입니다.</p>
           </div>
         )}
       </div>

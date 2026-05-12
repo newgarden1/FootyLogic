@@ -12,11 +12,11 @@ export const getMatchesToday = (leagueId?: number) => {
   return fetcher(`/matches/today${q}`)
 }
 
-export const getStandings = (leagueId: number, season = 2024) =>
-  fetcher(`/leagues/${leagueId}/standings?season=${season}`)
+export const getStandings = (leagueId: number) =>
+  fetcher(`/leagues/${leagueId}/standings`)
 
-export const getTopScorers = (leagueId: number, season = 2024) =>
-  fetcher(`/leagues/${leagueId}/top-scorers?season=${season}`)
+export const getTopScorers = (leagueId: number) =>
+  fetcher(`/leagues/${leagueId}/top-scorers`)
 
 export const searchTeams = (name: string) =>
   fetcher(`/teams/search?name=${encodeURIComponent(name)}`)

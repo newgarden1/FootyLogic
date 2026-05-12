@@ -5,16 +5,15 @@ from app.routers import matches, leagues, teams, players
 
 app = FastAPI(
     title="FootyLogic API",
-    description="API-Football 기반 축구 데이터 분석 백엔드",
-    version="0.1.0",
+    description="football-data.org 기반 축구 데이터 분석 백엔드",
+    version="0.2.0",
 )
 
-# Next.js 개발 서버 / 배포 도메인 허용
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
-        "https://footylogic.vercel.app",  # 추후 배포 주소로 교체
+        "https://footylogic.newgarden2000.workers.dev",
     ],
     allow_methods=["GET"],
     allow_headers=["*"],
@@ -33,8 +32,8 @@ async def root():
 
 @app.get("/health")
 async def health():
-    from app.config import API_FOOTBALL_KEY
+    from app.config import FOOTBALL_DATA_KEY
     return {
         "status": "ok",
-        "api_key_set": bool(API_FOOTBALL_KEY),
+        "api_key_set": bool(FOOTBALL_DATA_KEY),
     }

@@ -29,7 +29,7 @@ function posColor(rank: number, total: number) {
 
 export default async function StandingsTable({ leagueId }: { leagueId: number }) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const data: any = await getStandings(leagueId, 2024)
+  const data: any = await getStandings(leagueId)
   const standings: Standing[] = data?.response?.[0]?.league?.standings?.[0] ?? []
 
   if (standings.length === 0) {
@@ -59,7 +59,7 @@ export default async function StandingsTable({ leagueId }: { leagueId: number })
           fontFamily: 'Montserrat, sans-serif',
         }}
       >
-        {leagueName} — 2024/25 시즌
+        {leagueName}{data?.response?.[0]?.league?.season_label ? ` — ${data.response[0].league.season_label} 시즌` : ''}
       </div>
 
       <div className="overflow-x-auto">

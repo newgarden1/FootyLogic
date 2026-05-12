@@ -6,13 +6,12 @@ import FilterTabs from '@/components/FilterTabs'
 import MatchList from './MatchList'
 
 const LEAGUE_TABS = [
-  { key: 'all',        label: '전체' },
-  { key: '39',         label: '🏴󠁧󠁢󠁥󠁮󠁧󠁿 EPL' },
-  { key: '140',        label: '🇪🇸 라리가' },
-  { key: '78',         label: '🇩🇪 분데스리가' },
-  { key: '135',        label: '🇮🇹 세리에A' },
-  { key: '61',         label: '🇫🇷 리그앙' },
-  { key: '292',        label: '🇰🇷 K리그1' },
+  { key: 'all',    label: '전체' },
+  { key: '2021',   label: '🏴󠁧󠁢󠁥󠁮󠁧󠁿 EPL' },
+  { key: '2014',   label: '🇪🇸 라리가' },
+  { key: '2002',   label: '🇩🇪 분데스리가' },
+  { key: '2019',   label: '🇮🇹 세리에A' },
+  { key: '2015',   label: '🇫🇷 리그앙' },
 ]
 
 function todayKo() {

@@ -1,47 +1,92 @@
-from fastapi import APIRouter, Query
+from fastapi import APIRouter
 from app.api_client import get
 
 router = APIRouter(prefix="/leagues", tags=["leagues"])
 
-# 주요 리그 ID 상수
-LEAGUE_IDS = {
-    "epl":        39,
-    "laliga":     140,
-    "bundesliga": 78,
-    "seriea":     135,
-    "ligue1":     61,
-    "kleague1":   292,
+COMPETITIONS = {
+    "epl":        2021,
+    "laliga":     2014,
+    "bundesliga": 2002,
+    "seriea":     2019,
+    "ligue1":     2015,
 }
 
 
 @router.get("/")
 async def list_leagues():
-    """지원하는 주요 리그 목록 반환."""
-    return {"leagues": LEAGUE_IDS}
+    return {"leagues": COMPETITIONS}
 
 
 @router.get("/{league_id}/standings")
-async def standings(
-    league_id: int,
-    season: int = Query(2024, description="시즌 연도"),
-):
-    """리그 순위표 반환."""
-    return await get("standings", {"league": league_id, "season": season})
+async def standings(league_id: int):
+    data = await get(f"competitions/{league_id}/standings")
+
+    competition_name = data.get("competition", {}).get("name", "")
+    total = next(
+        (s for s in data.get("standings", []) if s.get("type") == "TOTAL"),
+        None,
+    )
+    table = total.get("table", []) if total else []
+
+    transformed = [
+        {
+            "rank": row["position"],
+            "team": {
+                "id": row["team"]["id"],
+                "name": row["team"]["name"],
+                "logo": row["team"].get("crest", ""),
+            },
+            "played": row["playedGames"],
+            "win": row["won"],
+            "draw": row["draw"],
+            "lose": row["lost"],
+            "goalsDiff": row["goalDifference"],
+            "points": row["points"],
+            "form": row.get("form", ""),
+            "description": None,
+        }
+        for row in table
+    ]
+
+    season = data.get("season", {})
+    season_label = f"{season.get('startDate', '')[:4]}/{season.get('endDate', '')[2:4]}" if season else ""
+
+    return {
+        "response": [
+            {
+                "league": {
+                    "name": competition_name,
+                    "season_label": season_label,
+                    "standings": [transformed],
+                }
+            }
+        ]
+    }
 
 
 @router.get("/{league_id}/top-scorers")
-async def top_scorers(
-    league_id: int,
-    season: int = Query(2024),
-):
-    """득점 순위 반환."""
-    return await get("players/topscorers", {"league": league_id, "season": season})
+async def top_scorers(league_id: int):
+    data = await get(f"competitions/{league_id}/scorers")
+    scorers = data.get("scorers", [])
+    competition_name = data.get("competition", {}).get("name", "")
 
+    transformed = [
+        {
+            "player": {
+                "id": s["player"]["id"],
+                "name": s["player"]["name"],
+                "photo": "",
+            },
+            "statistics": [
+                {
+                    "team": {"name": s["team"]["name"]},
+                    "league": {"name": competition_name, "country": ""},
+                    "games": {"appearances": 0, "rating": None},
+                    "goals": {"total": s.get("goals", 0), "assists": s.get("assists", 0)},
+                }
+            ],
+        }
+        for s in scorers
+    ]
 
-@router.get("/{league_id}/top-assists")
-async def top_assists(
-    league_id: int,
-    season: int = Query(2024),
-):
-    """어시스트 순위 반환."""
-    return await get("players/topassists", {"league": league_id, "season": season})
+    return {"response": transformed}

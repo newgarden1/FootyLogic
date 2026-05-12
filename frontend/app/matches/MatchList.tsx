@@ -1,12 +1,11 @@
 import { getMatchesToday } from '@/lib/api'
 
 const LEAGUE_NAMES: Record<number, string> = {
-  39: '🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League',
-  140: '🇪🇸 La Liga',
-  78: '🇩🇪 Bundesliga',
-  135: '🇮🇹 Serie A',
-  61: '🇫🇷 Ligue 1',
-  292: '🇰🇷 K리그1',
+  2021: '🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League',
+  2014: '🇪🇸 La Liga',
+  2002: '🇩🇪 Bundesliga',
+  2019: '🇮🇹 Serie A',
+  2015: '🇫🇷 Ligue 1',
 }
 
 interface Fixture {
