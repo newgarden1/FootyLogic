@@ -2,6 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "main": ".open-next/worker.js",
   "name": "footylogic",
+  "account_id": "9b3de9f185fe5790b80b9d0a90186b66",
   "compatibility_date": "2026-04-17",
   "compatibility_flags": [
     "nodejs_compat"

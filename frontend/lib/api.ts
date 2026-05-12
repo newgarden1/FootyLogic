@@ -2,6 +2,7 @@ const BASE = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000'
 
 async function fetcher<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE}${path}`, { cache: 'no-store' })
+  if (res.status === 429) throw new Error('API_RATE_LIMIT')
   if (!res.ok) throw new Error(`API error: ${res.status}`)
   return res.json()
 }
