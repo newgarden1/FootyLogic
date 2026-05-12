@@ -34,6 +34,7 @@ export default function DateNav({ date, today }: { date: string; today: string }
   const [calYear, setCalYear] = useState(() => parseInt(date.split('-')[0]))
   const [calMonth, setCalMonth] = useState(() => parseInt(date.split('-')[1]) - 1)
 
+
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)

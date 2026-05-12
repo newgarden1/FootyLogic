@@ -22,7 +22,8 @@ export default async function MatchesPage({
   searchParams: Promise<{ league?: string; date?: string }>
 }) {
   const { league = 'all', date } = await searchParams
-  const today = new Date().toISOString().split('T')[0]
+  const kst = new Date(Date.now() + 9 * 60 * 60 * 1000)
+  const today = kst.toISOString().split('T')[0]
   const targetDate = date || today
   const isToday = targetDate === today
 
