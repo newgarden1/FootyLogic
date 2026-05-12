@@ -18,7 +18,7 @@ export default async function StandingsPage({
 }: {
   searchParams: Promise<{ league?: string }>
 }) {
-  const { league = '39' } = await searchParams
+  const { league = '2021' } = await searchParams
 
   return (
     <>
