@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Query
 from app.api_client import get
-from datetime import date, timedelta
+from datetime import date as Date, timedelta
 
 router = APIRouter(prefix="/matches", tags=["matches"])
 
@@ -49,8 +49,8 @@ async def today_matches(
     league: int = Query(None),
     date: str = Query(None, description="YYYY-MM-DD, 없으면 오늘"),
 ):
-    target = date or date.today().isoformat()
-    next_day = (date.fromisoformat(target) + timedelta(days=1)).isoformat()
+    target = date or Date.today().isoformat()
+    next_day = (Date.fromisoformat(target) + timedelta(days=1)).isoformat()
     params: dict = {"dateFrom": target, "dateTo": next_day}
     if league:
         params["competitions"] = str(league)
