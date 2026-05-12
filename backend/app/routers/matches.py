@@ -45,9 +45,13 @@ def _transform(m: dict) -> dict:
 
 
 @router.get("/today")
-async def today_matches(league: int = Query(None)):
-    today = date.today().isoformat()
-    params: dict = {"dateFrom": today, "dateTo": today}
+async def today_matches(
+    league: int = Query(None),
+    date: str = Query(None, description="YYYY-MM-DD, 없으면 오늘"),
+):
+    from datetime import date as date_module
+    target = date or date_module.today().isoformat()
+    params: dict = {"dateFrom": target, "dateTo": target}
     if league:
         params["competitions"] = str(league)
 

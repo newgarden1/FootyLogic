@@ -3,6 +3,8 @@ import { Suspense } from 'react'
 export const dynamic = 'force-dynamic'
 import Topbar from '@/components/Topbar'
 import FilterTabs from '@/components/FilterTabs'
+import DateNav from '@/components/DateNav'
+import AutoRefresh from '@/components/AutoRefresh'
 import MatchList from './MatchList'
 
 const LEAGUE_TABS = [
@@ -14,26 +16,25 @@ const LEAGUE_TABS = [
   { key: '2015',   label: '🇫🇷 리그앙' },
 ]
 
-function todayKo() {
-  const d = new Date()
-  const days = ['일', '월', '화', '수', '목', '금', '토']
-  return `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일 (${days[d.getDay()]})`
-}
-
 export default async function MatchesPage({
   searchParams,
 }: {
-  searchParams: Promise<{ league?: string }>
+  searchParams: Promise<{ league?: string; date?: string }>
 }) {
-  const { league = 'all' } = await searchParams
+  const { league = 'all', date } = await searchParams
+  const today = new Date().toISOString().split('T')[0]
+  const targetDate = date || today
+  const isToday = targetDate === today
 
   return (
     <>
-      <Topbar title="오늘의 경기" date={todayKo()} showRefresh />
+      <Topbar title="경기 일정" showRefresh />
       <div className="px-9 py-8">
+        <DateNav date={targetDate} today={today} />
         <FilterTabs tabs={LEAGUE_TABS} paramName="league" />
-        <Suspense fallback={<MatchesLoadingFallback />}>
-          <MatchList leagueFilter={league} />
+        {isToday && <AutoRefresh intervalMs={60000} />}
+        <Suspense key={targetDate + league} fallback={<MatchesLoadingFallback />}>
+          <MatchList leagueFilter={league} date={targetDate} />
         </Suspense>
       </div>
     </>
@@ -44,7 +45,7 @@ function MatchesLoadingFallback() {
   return (
     <div className="flex flex-col items-center justify-center py-24 gap-4" style={{ color: '#7a8399' }}>
       <div
-        className="w-8 h-8 rounded-full border-2 border-t-transparent animate-spin"
+        className="w-8 h-8 rounded-full border-2 animate-spin"
         style={{ borderColor: 'rgba(255,255,255,0.1)', borderTopColor: '#00e676' }}
       />
       <p className="text-sm">경기 일정을 불러오는 중...</p>

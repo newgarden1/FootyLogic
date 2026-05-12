@@ -94,9 +94,9 @@ export default function Sidebar() {
             color: '#00e676',
           }}
         >
-          ⚡ API-Football
+          ⚡ football-data.org
         </div>
-        <p className="leading-relaxed">데이터 출처: api-football.com</p>
+        <p className="leading-relaxed">데이터 출처: football-data.org</p>
       </div>
     </aside>
   )

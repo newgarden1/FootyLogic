@@ -22,10 +22,10 @@ interface Fixture {
   goals: { home: number | null; away: number | null }
 }
 
-export default async function MatchList({ leagueFilter }: { leagueFilter: string }) {
+export default async function MatchList({ leagueFilter, date }: { leagueFilter: string; date: string }) {
   const leagueId = leagueFilter !== 'all' ? Number(leagueFilter) : undefined
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const data: any = await getMatchesToday(leagueId)
+  const data: any = await getMatchesToday(leagueId, date)
 
   const fixtures: Fixture[] = data?.response ?? []
 

@@ -7,9 +7,12 @@ async function fetcher<T>(path: string): Promise<T> {
   return res.json()
 }
 
-export const getMatchesToday = (leagueId?: number) => {
-  const q = leagueId ? `?league=${leagueId}` : ''
-  return fetcher(`/matches/today${q}`)
+export const getMatchesToday = (leagueId?: number, date?: string) => {
+  const params = new URLSearchParams()
+  if (leagueId) params.set('league', String(leagueId))
+  if (date) params.set('date', date)
+  const q = params.toString()
+  return fetcher(`/matches/today${q ? `?${q}` : ''}`)
 }
 
 export const getStandings = (leagueId: number) =>
